@@ -14,7 +14,7 @@ export class Nodeployer {
     const upload = multer({
       dest: 'uploads/'
     });
-    this.app.use(express.json());
+    this.app.use(express.urlencoded({ extended: true }));
 
     // endpoints
     this.app.get('/status', status);
