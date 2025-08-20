@@ -1,8 +1,8 @@
 
 import express from 'express';
 import multer from 'multer';
-import { deploy } from './controllers/deploy';
-import { status } from './controllers/status';
+import { deploy } from './controllers/deploy.js';
+import { status } from './controllers/status.js';
 
 export class Nodeployer {
   constructor() {
@@ -11,7 +11,9 @@ export class Nodeployer {
   }
 
   load() {
-    const upload = multer(dest='uploads/');
+    const upload = multer({
+      dest: 'uploads/'
+    });
     this.app.use(express.json());
 
     // endpoints
