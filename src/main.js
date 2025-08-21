@@ -4,6 +4,7 @@ import multer from 'multer';
 import { deploy } from './controllers/deploy.js';
 import { status } from './controllers/status.js';
 import { remove } from './controllers/remove.js';
+import { clear } from './controllers/clear.js';
 
 export class Nodeployer {
   constructor() {
@@ -21,6 +22,7 @@ export class Nodeployer {
     this.app.get('/status', upload.none(), status);
     this.app.post('/deploy', upload.single('file'), deploy);
     this.app.post('/remove', upload.none(), remove);
+    this.app.post('/clear', upload.none(), clear);
   }
 
   start() {
