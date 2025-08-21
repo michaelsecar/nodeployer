@@ -1,0 +1,8 @@
+
+# Set your "user" that manages the service to this operations and change "name" by your service name
+userALL=(ALL) NOPASSWD: 	/bin/systemctl restart name.service \
+				/bin/systemctl status name.service \
+				/bin/systemctl enable name.service \
+				/bin/systemctl disable name.service \
+				/bin/systemctl start name.service \
+				/bin/systemctl stop name.service \
