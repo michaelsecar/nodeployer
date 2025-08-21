@@ -1,11 +1,10 @@
-
-import express from 'express';
-import multer from 'multer';
-import { deploy } from './controllers/deploy/deploy.js';
-import { status } from './controllers/status/status.js';
-import { remove } from './controllers/remove/remove.js';
-import { clear } from './controllers/clear/clear.js';
-import { serviceStatus } from './controllers/status/status.js';
+import express from "express";
+import multer from "multer";
+import { deploy } from "./controllers/deploy/deploy.js";
+import { status } from "./controllers/status/status.js";
+import { remove } from "./controllers/remove/remove.js";
+import { clear } from "./controllers/clear/clear.js";
+import { service } from "./controllers/service/service.js";
 
 export class Nodeployer {
   constructor() {
@@ -15,22 +14,22 @@ export class Nodeployer {
 
   load() {
     const upload = multer({
-      dest: 'uploads/'
+      dest: "uploads/",
     });
     this.app.use(express.urlencoded({ extended: true }));
 
     // endpoints
-    this.app.get('/status', upload.none(), status);
-    this.app.post('/status', upload.none(), serviceStatus);
+    this.app.get("/status", upload.none(), status);
+    this.app.post("/service", upload.none(), service);
 
-    this.app.post('/deploy', upload.single('file'), deploy);
-    this.app.post('/remove', upload.none(), remove);
-    this.app.post('/clear', upload.none(), clear);
+    this.app.post("/deploy", upload.single("file"), deploy);
+    this.app.post("/remove", upload.none(), remove);
+    this.app.post("/clear", upload.none(), clear);
   }
 
   start() {
     this.app.listen(3000, () => {
-      console.log('Example app listening on port 3000!');
+      console.log("Example app listening on port 3000!");
     });
   }
 }
