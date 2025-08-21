@@ -1,10 +1,11 @@
 
 import express from 'express';
 import multer from 'multer';
-import { deploy } from './controllers/deploy.js';
-import { status } from './controllers/status.js';
-import { remove } from './controllers/remove.js';
-import { clear } from './controllers/clear.js';
+import { deploy } from './controllers/deploy/deploy.js';
+import { status } from './controllers/status/status.js';
+import { remove } from './controllers/remove/remove.js';
+import { clear } from './controllers/clear/clear.js';
+import { serviceStatus } from './controllers/status/status.js';
 
 export class Nodeployer {
   constructor() {
@@ -20,6 +21,8 @@ export class Nodeployer {
 
     // endpoints
     this.app.get('/status', upload.none(), status);
+    this.app.post('/status', upload.none(), serviceStatus);
+
     this.app.post('/deploy', upload.single('file'), deploy);
     this.app.post('/remove', upload.none(), remove);
     this.app.post('/clear', upload.none(), clear);
