@@ -1,10 +1,10 @@
 export const validateServiceName = (serviceName) => {
   const formattedServiceName = serviceName.split(" ")[0];
   if (!formattedServiceName.endsWith(".service"))
-    throw new Exception("El nombre del servicio no es válido");
+    throw new Error("El nombre del servicio no es válido");
   return formattedServiceName;
 };
-export const validaOperationName = (operationName) => {
+export const validateOperationName = (operationName) => {
   const operation = operationName.split(" ")[0];
   if (
     operation != "status" ||
@@ -14,7 +14,7 @@ export const validaOperationName = (operationName) => {
     operation != "stop" ||
     operation != "restart"
   ) {
-    throw new Exception("Nombre de la operación inválida");
+    return operation;
   }
-  return operation;
+  throw new Error("Nombre de la operación inválida");
 };

@@ -3,7 +3,8 @@ import { exec } from "child_process";
 export const execute = (operation, serviceName) => {
   let response = {
     status: "500",
-    message: "Error desconocido",
+    message:
+      "Verifique que el usuario tenga permisos para acceder a los servicios",
   };
   const command = `sudo systemctl ${operation} ${serviceName}`;
   switch (operation) {
@@ -13,9 +14,7 @@ export const execute = (operation, serviceName) => {
         if (stderr) throw new Error(stderr);
         const isActive = stdout.includes("inactive") ? false : true;
         if (error || !isActive)
-          throw new Exception(
-            `El servicio ${serviceName}, se encuentra inactivo`,
-          );
+          throw new Error(`El servicio ${serviceName}, se encuentra inactivo`);
         response = {
           message: `El servicio ${serviceName}, se encuentra activo`,
           active: true,
@@ -25,7 +24,7 @@ export const execute = (operation, serviceName) => {
     case "enable":
       exec(command, (error, stdout, stderr) => {
         if (stderr || error)
-          throw new Exception(
+          throw new Error(
             `Error al intentar habilitar el servicio ${serviceName}`,
           );
         response = {
@@ -38,7 +37,7 @@ export const execute = (operation, serviceName) => {
     case "disable":
       exec(command, (error, stdout, stderr) => {
         if (stderr || error)
-          throw new Exception(
+          throw new Error(
             `No se ha podido deshabilitar el servicio ${serviceName}`,
           );
         response = {
@@ -50,7 +49,7 @@ export const execute = (operation, serviceName) => {
     case "start":
       exec(command, (error, stdout, stderr) => {
         if (error || stderr)
-          throw new Exception(`Error al iniciar el servicio ${serviceName}`);
+          throw new Error(`Error al iniciar el servicio ${serviceName}`);
         response = {
           message: `Se ha iniciado el servicio ${serviceName}`,
           active: true,
@@ -60,7 +59,7 @@ export const execute = (operation, serviceName) => {
     case "stop":
       exec(command, (error, stdout, stderr) => {
         if (stderr)
-          throw new Exception(
+          throw new Error(
             `Error al detener el servicio servicio ${serviceName}`,
           );
         response = {
@@ -72,7 +71,7 @@ export const execute = (operation, serviceName) => {
     case "restart":
       exec(command, (error, stdout, stderr) => {
         if (stderr)
-          throw new Exception(
+          throw new Error(
             `Hubo un error al reiniciar el servicio servicio ${serviceName}`,
           );
         response = {
