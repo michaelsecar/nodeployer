@@ -1,8 +1,6 @@
 import { exec } from "child_process";
-import { validateServiceName } from "../validators/serviceValidator";
-import { hasUncaughtExceptionCaptureCallback, stderr, stdin } from "process";
 
-const execute = (operation, serviceName) => {
+export const execute = (operation, serviceName) => {
   let response = {
     status: "500",
     message: "Error desconocido",

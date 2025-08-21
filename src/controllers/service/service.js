@@ -1,8 +1,8 @@
-import { execute } from "../../services/systemdService";
+import { execute } from "../../services/systemdService.js";
 import {
   validateServiceName,
   validaOperationName,
-} from "../../validators/serviceValidator";
+} from "../../validators/serviceValidator.js";
 
 export const service = (req, res) => {
   res.setHeader("Content-Type", "application/json");
